@@ -38,8 +38,6 @@
 
 .operator > button {
   width: calc(100% / 4);
-
-  flex: 1 1 auto;
 }
 
 .button_area > .operand {
@@ -56,7 +54,6 @@
 .number > button {
   height: calc(100% / 4);
   width: calc(100% / 3);
-  flex: 1 1 auto;
 }
 
 .operand > .equal {
