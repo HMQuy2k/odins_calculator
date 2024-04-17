@@ -1,5 +1,83 @@
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  border: 1px solid gray;
+  width: 70vh;
+  height: 70vh;
+  margin: auto;
+  transform: translate(0, 20%);
+  display: flex;
+  flex-flow: column;
+}
+
+/* display will be 1/6 of container area */
+
+.display {
+  background-color: gray;
+  width: 100%;
+  height: calc(100% / 6);
+  padding: 30px 15px;
+}
+
+.button_area {
+  width: 100%;
+  height: calc(100% - (100% / 6));
+}
+
+/* operator will be 1/5 of button area*/
+.button_area > div {
+  display: flex;
+}
+.button_area > .operator {
+  height: calc(100% / 5);
+}
+
+.operator > button {
+  width: calc(100% / 4);
+
+  flex: 1 1 auto;
+}
+
+.button_area > .operand {
+  height: calc(100% - (100% / 5));
+}
+
+/* number width will 3/4 of operand width */
+.operand > .number {
+  width: calc(100% * 3 / 4);
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.number > button {
+  height: calc(100% / 4);
+  width: calc(100% / 3);
+  flex: 1 1 auto;
+}
+
+.operand > .equal {
+  width: calc(100% - (100% * 3 / 4));
+}
+
+.equal > button {
+  width: 100%;
+  height: 100%;
+}
+
+.button_area button {
+  border: 1px solid black;
+  font: bold xx-large "Arial";
+  flex: 1 1 auto;
+}
+
+
+.display > p {
+    font-size: 4.4rem;
+    text-align: right;
+    height: 100%;
+    width: 100%;
 }
