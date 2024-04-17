@@ -40,8 +40,6 @@ function operate(num1, num2, Op) {
     }
 }
 
-
-
 /**
  * Function to take input and display
  * Default val == 0
@@ -65,51 +63,64 @@ let displays = document.querySelector(".display > p");
 
 for (let btn of btns) {
     btn.addEventListener("click", () => {
-        displayManage(btn.value);
+        if (btn.value !== "=") {
+            displayManage(btn.value);
+            return;
+        }
+        getResult();
     });
 }
 
 /**
  * Create variable for display on calculator
  */
-let numFirst;
+let numFirst = 0;
 let numSecond;
 let operator;
 let isFirstNum = 1;
+let ans;
 const operatorArray = ["+", "-", "*", "/"];
+function clear() {
+    numFirst = 0;
+    numSecond = 0;
+    operator = undefined;
+    isFirstNum = 1;
+    ans = undefined;
+}
+
+// this func clear all but not answer
+function clearXANS() {
+    numFirst = 0;
+    numSecond = 0;
+    operator = undefined;
+    isFirstNum = 1;
+}
 
 function displayManage(buttonVal) {
     if (buttonVal === "clear") {
-        numFirst = undefined;
-        numSecond = undefined;
-        operator = undefined;
-        isFirstNum = 1;
-        displays.textContent = "0";
+        clear();
+        displays.textContent = numFirst;
         return;
     } else if (buttonVal === ".") {
         // concat . then next num then convert back to number
         if (isFirstNum) {
-            // prevent situation where first input of variable is dot
-            if (numFirst == undefined) {
-                numFirst = 0;
-            }
             numFirst += ".";
             displays.textContent = numFirst;
             return;
         } else if (!isFirstNum) {
-            if (numSecond == undefined) {
-                numSecond = 0;
-            }
             numSecond += ".";
             displays.textContent = numSecond;
             return;
         }
         // if there is  no next num or next num == 0 then dot will be removed automatically
     }
-    //   when hit the operator input => isFirstNum == 0;
+    //   when hit the operator input => isFirstNum == 0 and change to input for second num
     if (operatorArray.includes(buttonVal)) {
         operator = buttonVal;
-        if (isFirstNum && numFirst !== undefined) {
+        if (ans !== undefined && numFirst == 0) {
+            numFirst = ans;
+        }
+        if (isFirstNum) {
             isFirstNum = 0;
         }
         displays.textContent = operator;
@@ -117,21 +128,32 @@ function displayManage(buttonVal) {
     }
 
     /** 
-       * When enter first num, we have to assign value to the operand
-       or else the value will be undefine => cannot write numSecond + call operate()
-       * */
+     * if '.' just have been input, then skip *= 10 or else will display NaN
+     */
     if (isFirstNum) {
         if (typeof numFirst !== "string") {
-            numFirst !== undefined ? (numFirst *= 10) : (numFirst = 0);
+            numFirst *= 10;
         }
-
         numFirst += Number(buttonVal);
         displays.textContent = numFirst;
     } else if (!isFirstNum) {
         if (typeof numSecond !== "string") {
-            numSecond !== undefined ? (numSecond *= 10) : (numSecond = 0);
+            numSecond *= 10;
         }
         numSecond += Number(buttonVal);
         displays.textContent = numSecond;
     }
+}
+
+function getResult() {
+    if (numSecond == 0 && operator == undefined) {
+        displays.textContent = numFirst;
+        return;
+    } else if (numSecond == 0 && operator !== undefined) {
+        displays.textContent = `${numFirst} ${operator}`;
+        return;
+    }
+    ans = operate(numFirst, numSecond, operator);
+    displays.textContent = ans;
+    clearXANS();
 }
