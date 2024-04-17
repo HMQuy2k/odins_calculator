@@ -17,7 +17,7 @@
 /* display will be 1/6 of container area */
 
 .display {
-  background-color: gray;
+  background-color: rgb(27, 25, 25);
   width: 100%;
   height: calc(100% / 6);
   padding: 30px 15px;
@@ -34,10 +34,12 @@
 }
 .button_area > .operator {
   height: calc(100% / 5);
+  
 }
 
 .operator > button {
   width: calc(100% / 4);
+  background-color: rgb(103, 102, 102);
 }
 
 .button_area > .operand {
@@ -63,6 +65,7 @@
 .equal > button {
   width: 100%;
   height: 100%;
+  background-color: orange;
 }
 
 .button_area button {
@@ -77,4 +80,5 @@
     text-align: right;
     height: 100%;
     width: 100%;
+    color: whitesmoke;
 }
