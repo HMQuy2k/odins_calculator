@@ -20,3 +20,29 @@ function mul(a, b) {
 function divd(a, b) {
     return a / b;
 }
+
+/**
+ * Create variable for display on calculator
+ */
+let numFirst;
+let numSecond;
+let operator;
+
+function operate(num1, num2, Op) {
+    switch (Op) {
+        case '+':
+            return add(num1, num2);
+            break;
+        case '-':
+            return sub(num1, num2);
+            break;
+        case '*':
+            return mul(num1, num2);
+            break;
+        case '/':
+            return divd(num1, num2);
+            break;
+        default:
+            return;
+    }
+}
